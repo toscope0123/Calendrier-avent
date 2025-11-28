@@ -101,31 +101,46 @@
     const currentMonth = today.getMonth(); // 0 = janvier, 11 = décembre
     const currentDay = today.getDate();
 
+    // Récupère les cases déjà ouvertes depuis localStorage
+    let openedCases = JSON.parse(localStorage.getItem("openedCases")) || [];
+
     messages.forEach((msg, i) => {
       const day = i + 1;
-
       const cell = document.createElement("div");
       cell.className = "case";
       cell.textContent = day;
 
-      if (currentMonth !== 11 || day > currentDay) {
-        // Pas encore le jour ou pas décembre
+      const isOpen = openedCases.includes(day);
+
+      // Case déjà ouverte ou disponible aujourd'hui
+      if (isOpen || (currentMonth === 11 && day <= currentDay)) {
+        cell.classList.add("open");
+        cell.onclick = () => {
+          messageBox.textContent = msg;
+          messageBox.style.display = "block";
+        };
+      } else {
+        // Case verrouillée
         cell.style.opacity = "0.4";
         cell.style.cursor = "not-allowed";
         cell.onclick = () => {
           messageBox.textContent = "Vous ne pouvez ouvrir cette case que le " + day + " décembre !";
           messageBox.style.display = "block";
         };
-      } else {
-        // Case disponible
-        cell.onclick = () => {
-          messageBox.textContent = msg;
-          messageBox.style.display = "block";
-        };
       }
+
+      // Si l'utilisateur clique sur une case disponible, on l'enregistre
+      cell.addEventListener("click", () => {
+        if (!openedCases.includes(day) && currentMonth === 11 && day <= currentDay) {
+          openedCases.push(day);
+          localStorage.setItem("openedCases", JSON.stringify(openedCases));
+          cell.classList.add("open");
+        }
+      });
 
       grid.appendChild(cell);
     });
   </script>
 </body>
 </html>
+

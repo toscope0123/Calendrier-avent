@@ -58,13 +58,7 @@ opacity: 0.25;
 z-index: -1;
 }
 </style>
-</head>
-<body>
-<h1>Calendrier de l'Avent MMS à n'ouvrir qu'a deux <3</h1>
-<div class="grid" id="grid"></div>
-<div id="message" class="message"></div>
-
-  <script>
+<script>
     const messages = [
       "01 faites vous un massage sensuel chacun votre tour. bougies, ambiance lumineuse, sonore obligatoire",
       "02 chacun tire une carte à osmoz niveau 2 ou 3 et doit faire ou recevoir ce qui est écrit",
@@ -92,23 +86,39 @@ z-index: -1;
       "Joyeux Noël <3"
     ];
 
-    const grid = document.getElementById("grid");
-    const messageBox = document.getElementById("message");
+   const grid = document.getElementById("grid");
+const messageBox = document.getElementById("message");
 
-    messages.forEach((msg, i) => {
-      const day = i + 1;
-      const cell = document.createElement("div");
-      cell.className = "case";
-      cell.textContent = day;
-      cell.onclick = () => {
-        messageBox.textContent = msg;
-        messageBox.style.display = "block";
-      };
-      grid.appendChild(cell);
-    });
-  </script>
+
+messages.forEach((msg, i) => {
+const day = i + 1;
+const today = new Date();
+const currentDay = today.getDate();
+
+
+const cell = document.createElement("div");
+cell.className = "case";
+cell.textContent = day;
+
+
+if (day > currentDay) {
+cell.style.opacity = "0.4";
+cell.style.cursor = "not-allowed";
+cell.onclick = () => {
+messageBox.textContent = "Vous ne pouvez ouvrir cette case que le " + day + " décembre !";
+messageBox.style.display = "block";
+};
+} else {
+cell.onclick = () => {
+messageBox.textContent = msg;
+messageBox.style.display = "block";
+};
+}
+
+
+grid.appendChild(cell);
+});(cell);
+});
+</script>
 </body>
 </html>
-
-
-

@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Calendrier de l'Avent</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f3f0e8;
+      margin: 0;
+      padding: 20px;
+      text-align: center;
+    }
+    h1 {
+      margin-bottom: 20px;
+    }
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(6, 1fr);
+      gap: 10px;
+      max-width: 800px;
+      margin: auto;
+    }
+    .case {
+      background: #c0392b;
+      color: white;
+      padding: 20px;
+      font-size: 20px;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+    .case:hover {
+      background: #e74c3c;
+    }
+    .message {
+      margin-top: 20px;
+      font-size: 22px;
+      padding: 20px;
+      background: white;
+      border-radius: 12px;
+      max-width: 600px;
+      margin-left: auto;
+      margin-right: auto;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+      display: none;
+    }
+  </style>
+</head>
+<body>
+  <h1>Calendrier de l'Avent</h1>
+  <div class="grid" id="grid"></div>
+  <div id="message" class="message"></div>
+
+  <script>
+    const messages = [
+      "Message pour le 1er décembre",
+      "Message pour le 2 décembre",
+      "Message pour le 3 décembre",
+      "Message pour le 4 décembre",
+      "Message pour le 5 décembre",
+      "Message pour le 6 décembre",
+      "Message pour le 7 décembre",
+      "Message pour le 8 décembre",
+      "Message pour le 9 décembre",
+      "Message pour le 10 décembre",
+      "Message pour le 11 décembre",
+      "Message pour le 12 décembre",
+      "Message pour le 13 décembre",
+      "Message pour le 14 décembre",
+      "Message pour le 15 décembre",
+      "Message pour le 16 décembre",
+      "Message pour le 17 décembre",
+      "Message pour le 18 décembre",
+      "Message pour le 19 décembre",
+      "Message pour le 20 décembre",
+      "Message pour le 21 décembre",
+      "Message pour le 22 décembre",
+      "Message pour le 23 décembre",
+      "Message pour le 24 décembre"
+    ];
+
+    const grid = document.getElementById("grid");
+    const messageBox = document.getElementById("message");
+
+    messages.forEach((msg, i) => {
+      const day = i + 1;
+      const cell = document.createElement("div");
+      cell.className = "case";
+      cell.textContent = day;
+      cell.onclick = () => {
+        messageBox.textContent = msg;
+        messageBox.style.display = "block";
+      };
+      grid.appendChild(cell);
+    });
+  </script>
+</body>
+</html>
